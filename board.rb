@@ -10,6 +10,13 @@ class Board
         generate_board
     end
 
+    def [](pos)
+        row, col = pos
+        @grid[row][col]
+    end
+
+    private
+
     def generate_board
         @grid = Array.new(@grid_size) do |row|
             Array.new(@grid_size) { |col| Tile.new(self, [row, col] )}
