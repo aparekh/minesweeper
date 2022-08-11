@@ -68,7 +68,13 @@ class Tile
     end
 
     def reveal
-        
+        if flagged?
+            bombed? ? "F" : "f"
+        elsif bombed?
+            explored? ? "X" : "B"
+        else
+            neighbor_bomb_count == 0 ? "_" : neighbor_bomb_count.to_s
+        end
     end
 
     def plant_bomb
