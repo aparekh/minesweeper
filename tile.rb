@@ -43,7 +43,7 @@ class Tile
         end
 
         adj_coords.select do |row, col|
-            [row, col].all? do { |coord| coord.between?(0, @board.grid_size - 1) }
+            [row, col].all? { |coord| coord.between?(0, @board.grid_size - 1) }
         end
 
         adj_coords.map { |pos| @board[pos] }
@@ -51,6 +51,20 @@ class Tile
 
     def neighbor_bomb_count
         neighbors.select(&:bombed?).count
+    end
+
+    def inspect
+        { pos: pos, bombed: bombed?, flagged: flagged?, explored: explored? }.inspect
+    end
+
+    def render
+        if flagged?
+            "F"
+        elsif explored?
+            neighbor_bomb_count == 0 ? "_" : neighbor_bomb_count.to_s
+        else
+            "*"
+        end
     end
 
     def reveal
@@ -61,5 +75,7 @@ class Tile
         @bombed = true
     end
 
-
+    def toggle_flag
+        @flagged = !@flagged unless explored?
+    end
 end
