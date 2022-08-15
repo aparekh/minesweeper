@@ -15,6 +15,26 @@ class Board
         @grid[row][col]
     end
 
+    def render(reveal = false)
+        @grid.map do |row|
+            row.map do |tile|
+                reveal ? tile.reveal : tile.render
+            end.join("")
+        end.join("/n")
+    end
+
+    def reveal
+        render(true)
+    end
+
+    def won?
+        @grid.flatten.all? { |tile| tile.bombed? != tile.explored? }
+    end
+
+    def lost?
+        @grid.flatten.any? { |tile| tile.bombed? && tile.explored? }
+    end
+
     private
 
     def generate_board
