@@ -39,7 +39,7 @@ class Board
 
     def generate_board
         @grid = Array.new(@grid_size) do |row|
-            Array.new(@grid_size) { |col| Tile.new(self, [row, col] )}
+            Array.new(@grid_size) { |col| Tile.new(self, [row, col] ) }
         end
 
         plant_bombs
