@@ -20,7 +20,7 @@ class Board
             row.map do |tile|
                 reveal ? tile.reveal : tile.render
             end.join("")
-        end.join("/n")
+        end.join("\n")
     end
 
     def reveal

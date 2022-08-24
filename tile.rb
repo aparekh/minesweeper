@@ -38,12 +38,12 @@ class Tile
     end
 
     def neighbors
-        adj_coords = DELTAS.map do |dx, dy|
+        adj_coords = DELTAS.map do |(dx, dy)|
             [pos[0] + dx, pos[1] + dy]
-        end
-
-        adj_coords.select do |row, col|
-            [row, col].all? { |coord| coord.between?(0, @board.grid_size - 1) }
+        end.select do |row, col|
+            [row, col].all? do |coord|
+                coord.between?(0, @board.grid_size - 1)
+            end
         end
 
         adj_coords.map { |pos| @board[pos] }

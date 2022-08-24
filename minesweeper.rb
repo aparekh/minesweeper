@@ -1,12 +1,13 @@
 require_relative "board"
 
-clase MinesweeperGame
+class MinesweeperGame
     def initialize
         @board = Board.new
     end
 
     def play
         until @board.won? || @board.lost?
+            system("clear")
             puts @board.render
 
             action, pos = get_move
@@ -16,8 +17,9 @@ clase MinesweeperGame
         if @board.won?
             puts "You win!"
         elsif @board.lost?
+            system("clear")
             puts "**Bomb hit!**"
-            @board.reveal
+            puts @board.reveal 
         end
     end
 
@@ -25,7 +27,7 @@ clase MinesweeperGame
 
     def get_move
         puts "Please enter an action and position (i.e. e,0,5):"
-        puts ">> "
+        print ">> "
         action, row, col = gets.chomp.split(",")
 
         [action, [row.to_i, col.to_i]]
@@ -41,4 +43,8 @@ clase MinesweeperGame
             tile.explore
         end
     end
+end
+
+if $PROGRAM_NAME == __FILE__
+    MinesweeperGame.new.play
 end
