@@ -3,9 +3,9 @@ require_relative "tile"
 class Board
     attr_reader :grid_size, :num_bombs
 
-    def initialize
-        @grid_size = 9
-        @num_bombs = 10
+    def initialize(grid_size, num_bombs)
+        @grid_size = grid_size
+        @num_bombs = num_bombs
 
         generate_board
     end
