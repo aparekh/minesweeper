@@ -1,3 +1,6 @@
+require "colorize"
+require "colorized_string"
+
 class Tile
     DELTAS = [[0, 1], [0, -1], [1, 0], [1, -1], [1, 1], [-1, 0], [-1, 1], [-1, -1]].freeze
 
@@ -59,21 +62,21 @@ class Tile
 
     def render
         if flagged?
-            "F"
+            "F".colorize(:red)
         elsif explored?
-            neighbor_bomb_count == 0 ? "_" : neighbor_bomb_count.to_s
+            neighbor_bomb_count == 0 ? "_".colorize(:gray) : neighbor_bomb_count.to_s.colorize(:yellow)
         else
-            "*"
+            "*".colorize(:light_blue)
         end
     end
 
     def reveal
         if flagged?
-            bombed? ? "F" : "f"
+            bombed? ? "F".colorize(:green) : "f".colorize(:red)
         elsif bombed?
-            explored? ? "X" : "B"
+            explored? ? "X".colorize(:red) : "B".colorize(:black)
         else
-            neighbor_bomb_count == 0 ? "_" : neighbor_bomb_count.to_s
+            neighbor_bomb_count == 0 ? "_".colorize(:gray) : neighbor_bomb_count.to_s.colorize(:yellow)
         end
     end
 
