@@ -40,11 +40,18 @@ class MinesweeperGame
     private
 
     def get_move
-        puts "Please enter an action and position (i.e. e,0,5):"
-        print ">> "
-        action, row, col = gets.chomp.split(",")
+        action, row, col = nil, nil, nil
+        until valid_move?(action, row, col)
+            puts "Please enter an action and position (i.e. e,0,5):"
+            print ">> "
+            action, row, col = gets.chomp.split(",")
+        end
 
         [action, [row.to_i, col.to_i]]
+    end
+
+    def valid_move?(action, row, col)
+        (action == "e" || action == "f" || action == "s") && row.to_i.between?(0, @board.grid_size - 1) && col.to_i.between?(0, @board.grid_size - 1)
     end
 
     def perform_action(action, pos)
