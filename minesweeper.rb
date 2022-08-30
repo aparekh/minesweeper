@@ -12,16 +12,24 @@ class MinesweeperGame
     end
 
     def play
+        start_time = Time.now
         until @board.won? || @board.lost?
             system("clear")
             puts @board.render
+            t2 = Time.now
+            elapsed_time = t2 - start_time
+            puts "Time elapsed: #{elapsed_time}"
 
             action, pos = get_move
             perform_action(action, pos)
         end
 
         if @board.won?
+            finish_time = Time.now
+            elapsed_time = finish_time - start_time
             puts "You win!"
+            puts "You finished in #{elapsed_time} seconds."
+            
         elsif @board.lost?
             system("clear")
             puts "**Bomb hit!**"
